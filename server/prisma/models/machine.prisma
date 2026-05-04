@@ -1,0 +1,22 @@
+model HostMachine {
+  id        String    @id @default(uuid())
+  name      String @unique
+  cpu       Int    // number of cores
+  gpu       Int?    // number of cores
+  ram       Int    // in GB
+  storage   Int?    // in GB
+  pricePerHour Float
+
+  inUse  Boolean @default(false)
+  isOnline  Boolean @default(false)
+
+  owner     User   @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+
+  sessions  Session[]
+  review  Review[]
+
+  createdAt DateTime @default(now())
+
+  @@index([ownerId])
+}
